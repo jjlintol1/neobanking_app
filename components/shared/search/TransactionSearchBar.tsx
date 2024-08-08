@@ -55,7 +55,7 @@ const TransferUserSearch = () => {
           placeholder="Search by transaction type, description or involved parties"
           value={term}
           className="no-focus bg-inherit border-none shadow-none outline-none"
-          onChange={(e) => setTerm(e.target.value)}
+          onChange={(e: any) => setTerm(e.target.value)}
         />
       </div>
     </div>

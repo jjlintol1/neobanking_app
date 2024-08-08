@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Name: custom color palette
+     Author: Ilias Ism
+     URL: https://gradient.page */
+
+/* CSS: .bg-gradient { background: var(--gradient) } */
+/* @layer base {
+  :root {
+    --background: 94 0% 95%;
+    --foreground: 94 0% 6%;
+    --card: 94 0% 90%;
+    --card-foreground: 94 0% 10%;
+    --popover: 94 0% 95%;
+    --popover-foreground: 94 95% 6%;
+    --primary: 94 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 94 10% 70%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 56 10% 85%;
+    --muted-foreground: 94 0% 35%;
+    --accent: 56 10% 80%;
+    --accent-foreground: 94 0% 10%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 94 0% 90%;
+    --border: 94 20% 50%;
+    --input: 94 20% 18%;
+    --ring: 94 100% 50%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 94 10% 6%;
+    --foreground: 94 0% 90%;
+    --card: 94 0% 6%;
+    --card-foreground: 94 0% 90%;
+    --popover: 94 10% 5%;
+    --popover-foreground: 94 0% 90%;
+    --primary: 94 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 94 10% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 56 10% 15%;
+    --muted-foreground: 94 0% 60%;
+    --accent: 56 10% 15%;
+    --accent-foreground: 94 0% 90%;
+    --destructive: 0 50% 30%;
+    --destructive-foreground: 94 0% 90%;
+    --border: 94 20% 18%;
+    --input: 94 20% 18%;
+    --ring: 94 100% 50%;
+    --radius: 0.5rem;
+  }
+} */
+
+@layer utilities {
+  .foreground-text {
+    @apply text-foreground-light dark:text-foreground-dark;
+  }
+
+  .card-foreground-text {
+    @apply text-card-foreground-light dark:text-card-foreground-dark;
+  }
+
+  .gradient-text {
+    @apply bg-primary-gradient bg-clip-text text-transparent;
+  }
+
+  .card {
+    @apply bg-card-light dark:bg-card-dark text-cardForeground-light dark:text-cardForeground-dark;
+  }
+
+  .btn-primary {
+    @apply bg-card-light dark:bg-card-dark;
+  } 
+
+  /* bg-card-light dark:bg-card-dark border-2 font-bold shadow-md transition-colors hover:bg-accent-light hover:text-accentForeground-light focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring-light disabled:pointer-events-none disabled:opacity-50 dark:text-foreground-dark dark:hover:bg-accent-dark */
+}
+
+.no-focus {
+  @apply focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
+}
+
+/* .mesh-gradient {
+  background: linear-gradient(129deg, rgba(45,189,249,1) 4%, rgba(32,211,252,1) 28%, rgba(44,197,252,1) 40%, rgba(161,55,252,1) 69%, rgba(160,54,252,1) 85%, rgba(176,61,249,1) 99%);
+} */
+
+.mesh-gradient {
+  background: hsl(var(--gradient));
+}
+
+.gradient-white {
+  /* background: radial-gradient(
+    ellipse at center,
+    rgba(219, 219, 219, 1) 0%,
+    rgba(255, 255, 255, 0)
+  ); */
+  background: hsl(var(--card));
+}
+
+.custom-loader {
+  width: 100px;
+  height: 24px;
+  background:
+    radial-gradient(circle closest-side, #00F5A0 90%, #0000) 0% 50%,
+    radial-gradient(circle closest-side, #00F5A0 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, #00F5A0 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 100%;
+  background-repeat: no-repeat;
+  animation: d7 1s infinite linear;
+}
+
+.custom-loader-dark {
+  width: 100px;
+  height: 16px;
+  background:
+    radial-gradient(circle closest-side, #000000 90%, #0000) 0% 50%,
+    radial-gradient(circle closest-side, #000000 90%, #0000) 50% 50%,
+    radial-gradient(circle closest-side, #000000 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 100%;
+  background-repeat: no-repeat;
+  animation: d7 1s infinite linear;
+}
+
+
+
+@keyframes d7 {
+  33% {
+    background-size:
+      calc(100% / 3) 0%,
+      calc(100% / 3) 100%,
+      calc(100% / 3) 100%;
+  }
+  50% {
+    background-size:
+      calc(100% / 3) 100%,
+      calc(100% / 3) 0%,
+      calc(100% / 3) 100%;
+  }
+  66% {
+    background-size:
+      calc(100% / 3) 100%,
+      calc(100% / 3) 100%,
+      calc(100% / 3) 0%;
+  }
+}

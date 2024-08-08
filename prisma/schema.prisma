@@ -1,0 +1,100 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id                   String        @id @default(cuid())
+    email                String        @unique
+    username             String        @unique
+    firstName            String
+    lastName             String
+    password             String
+    createdAt            DateTime      @default(now())
+    updatedAt            DateTime      @updatedAt
+    accounts             BankAccount[]
+    transactionsSent     Transaction[] @relation(name: "userSentTransactios")
+    transactionsReceived Transaction[] @relation(name: "userReceivedTransactions")
+    budgets              Budget[]
+    accessTokens         AccessToken[]
+    dwollaCustomerId     String
+    dwollaCustomerUrl    String
+    avatarColor          String
+    avatarTextColor      String
+    // stripeCustomerId String
+}
+
+model BankAccount {
+    id                     String        @id @default(cuid())
+    userId                 String
+    user                   User          @relation(fields: [userId], references: [id])
+    bankId                 String
+    plaidAccountId         String
+    accessTokenId          String
+    accessToken            AccessToken   @relation(fields: [accessTokenId], references: [id])
+    dwollaFundingSourceUrl String
+    processorToken         String
+    createdAt              DateTime      @default(now())
+    isDefaultPayment       Boolean       @default(false)
+    isDefaultReceiving     Boolean       @default(false)
+    transactionsSent       Transaction[] @relation(name: "accountSentTransactions")
+    transactionsReceived   Transaction[] @relation(name: "accountReceivedTransactions")
+}
+
+model AccessToken {
+    id           String        @id @default(cuid())
+    token        String        @unique
+    bankAccounts BankAccount[]
+    userId       String
+    user         User          @relation(fields: [userId], references: [id])
+    cursor       String?
+}
+
+model Transaction {
+    id                             String               @id @default(cuid())
+    plaidTransactionId             String?              @unique
+    senderBankAccountId            String?
+    senderBankAccount              BankAccount?         @relation(name: "accountSentTransactions", fields: [senderBankAccountId], references: [id])
+    senderId                       String?
+    sender                         User?                @relation(name: "userSentTransactios", fields: [senderId], references: [id])
+    recipientId                    String?
+    recipient                      User?                @relation(name: "userReceivedTransactions", fields: [recipientId], references: [id])
+    recipientBankAccountId         String?
+    recipientBankAccount           BankAccount?         @relation(name: "accountReceivedTransactions", fields: [recipientBankAccountId], references: [id])
+    amount                         Float
+    type                           String
+    status                         String
+    description                    String?
+    counterpartyName               String?
+    counterpartyLogoUrl            String?
+    senderTransactionCategoryId    Int?
+    senderTransactionCategory      TransactionCategory? @relation(name: "senderTransactionCategory", fields: [senderTransactionCategoryId], references: [id])
+    recipientTransactionCategoryId Int?
+    recipientTransactionCategory   TransactionCategory? @relation(name: "recipientTransactionCategory", fields: [recipientTransactionCategoryId], references: [id])
+    date                           DateTime             @default(now())
+    currency                       String
+    dwollaTransferUrl              String?
+}
+
+model TransactionCategory {
+    id                   Int           @id @default(autoincrement())
+    categoryName         String
+    categoryDisplayName  String?
+    logoUrl              String
+    transactionsSent     Transaction[] @relation(name: "senderTransactionCategory")
+    transactionsReceived Transaction[] @relation(name: "recipientTransactionCategory")
+    budgets              Budget[]
+}
+
+model Budget {
+    id                    String              @id @default(cuid())
+    userId                String
+    user                  User                @relation(fields: [userId], references: [id])
+    transactionCategoryId Int
+    transactionCategory   TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
+    amount                Float
+}

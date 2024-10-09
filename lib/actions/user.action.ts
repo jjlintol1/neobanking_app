@@ -170,7 +170,7 @@ export async function createLinkToken({
         client_user_id: userId,
       },
       client_name: "ClearPay",
-      products: ["auth"] as Products[],
+      products: ["auth", "transactions"] as Products[],
       country_codes: ["US"] as CountryCode[],
       language: "en",
     });

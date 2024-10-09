@@ -27,7 +27,7 @@ const Sidebar = async () => {
             width={30}
             height={30}
           />
-          <h2 className="ml-2 hidden text-primary-light text-xl font-bold lg:block">
+          <h2 className="ml-2 hidden text-xl font-bold text-primary-light lg:block">
             Clear
             <span className="text-foreground-light dark:text-foreground-dark">
               Pay

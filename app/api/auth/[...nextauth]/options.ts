@@ -22,6 +22,7 @@ export const options = {
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
